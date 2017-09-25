@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Sound Recorder</string>
+
+    <string name="record_audio">RECORD</string>
+    <string name="playback_today">PLAYBACK 1</string>
+    <string name="playback_yesterday">PLAYBACK 2</string>
+</resources>
