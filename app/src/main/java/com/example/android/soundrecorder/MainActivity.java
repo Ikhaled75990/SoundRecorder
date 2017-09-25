@@ -150,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             mMediaRecorder.stop();
         } catch(RuntimeException e) {
+            e.printStackTrace();
 
         } finally {
             stop.setEnabled(false);
@@ -170,11 +171,12 @@ public class MainActivity extends AppCompatActivity {
     private void releasePlayer() {
         if (mMediaPlayer != null) {
             mMediaPlayer.release();
+            mMediaPlayer = null;
         }
     }
 
     private void todayRecording() throws IOException {
-        releasePlayer();
+        mMediaPlayer.reset();
         mMediaPlayer.setDataSource(OUTPUT_FILE);
         mMediaPlayer.setOnPreparedListener(
                 new MediaPlayer.OnPreparedListener(){
@@ -183,13 +185,19 @@ public class MainActivity extends AppCompatActivity {
                 mMediaPlayer.start();
             }
         });
-        mMediaPlayer.prepareAsync();
-       // mMediaPlayer.prepare();
-        mMediaPlayer.start();
+        //mMediaPlayer.prepareAsync();
+       //mMediaPlayer.prepare();
+        //mMediaPlayer.start();
 
         Toast.makeText(this, "Playback successful!", Toast.LENGTH_SHORT).show();
 
 
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        releasePlayer();
     }
 
 
